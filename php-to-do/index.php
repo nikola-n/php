@@ -1,3 +1,19 @@
+<?php
+
+require_once 'app/init.php';
+
+$itemsQuery = $db->prepare("
+SELECT id, name, done FROM items WHERE user = :user
+");
+
+$itemsQuery->execute([
+    'user' => $_SESSION['user_id'],
+]);
+
+$items = $itemsQuery->rowCount() ? $itemsQuery : [];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +26,26 @@
 <body>
 <div class="list">
     <h1 class="header">To do.</h1>
-    <ul class="items">
-        <li>
-            <span class="item">Pick up shopping</span>
-            <a href="#" class="done-button">Mark as done.</a>
-        </li>
-        <li>
-            <span class="item done">Learn PHP</span>
-        </li>
-    </ul>
+    <?php if ( ! empty($items)): ?>
+        <ul class="items">
+        <?php foreach ($items as $item): ?>
+            <li>
+                <span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?= $item['name'] ?></span>
+                <?php if ( ! $item['done']): ?>
+                    <a href="mark.php?as=done&item=<?php echo $item['id']?>" class="done-button">Mark as done.</a>
+                <?php else: ?>
+                    <a href="mark.php?as=notdone&item=<?php echo $item['id']?>" class="done-button">Mark as not done.</a>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>You haven't added any items yet.</p>
+        </ul>
+    <?php endif; ?>
 
     <form class="item-add" action="add.php" method="post">
         <input type="text" name="name" placeholder="Type a new item here." class="input" autocomplete="off" required>
-        <button type="submit" value="add" class="submit">Submit</button>
+        <button type="submit" value="add" class="submit">Add</button>
     </form>
 </div>
 </body>

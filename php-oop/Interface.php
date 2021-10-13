@@ -4,13 +4,14 @@ interface Newsletter
 {
     public function subscribe($email);
 }
+
 class CampaignMonitor implements Newsletter
 {
-//    protected $apiKey;
-//    public function __construct($apiKey)
-//    {
-//        $this->apiKey = $apiKey;
-//    }
+    //    protected $apiKey;
+    //    public function __construct($apiKey)
+    //    {
+    //        $this->apiKey = $apiKey;
+    //    }
 
     public function subscribe($email)
     {
@@ -18,12 +19,13 @@ class CampaignMonitor implements Newsletter
         //request will be sent to this to add the user to the main list
     }
 }
+
 //switch to a different newsletter provider
 class Drip implements Newsletter
 {
     public function subscribe($email)
     {
-    die('subscribing with drip');
+        die('subscribing with drip');
     }
 }
 
@@ -35,14 +37,13 @@ class NewsletterSubscriptionsController
         $email = 'joe@example.com';
         $newsletter->subscribe($email);
 
-
-
         //vo laravel
         //$newsletter = new CampaignMonitor(config('services.cm.key'));
-      //$newsletter->subscribe(auth()->user()->email);
+        //$newsletter->subscribe(auth()->user()->email);
         //add email address to Campaign Monitor
     }
 }
+
 $controller = new NewsletterSubscriptionsController();
 $controller->store(new Drip());
 

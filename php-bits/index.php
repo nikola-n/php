@@ -69,7 +69,7 @@ $cents  = round($dollars * 100);
 $coins  = 0;
 $result = 0;
 
-If ($cents >= 25) {
+if ($cents >= 25) {
     $result = $cents - 25;
     $coins++;
     while ($result >= 25) {
@@ -175,3 +175,38 @@ function dd($value)
 {
     return die(var_dump(($value)));
 }
+
+// variables variable
+$foo = 'bar';
+
+$$foo = 'hey';
+
+// $bar = 'hey';
+//dd($bar); // hey
+//dd(${$foo});
+//dd($$foo);
+
+//Constants
+const BAR = 'foo';
+define('BAR_STATUS', 'Online');
+//if(BAR_STATUS == 'Online') {} // can be used!
+// if(BAR == 'foo') // cannot be used!
+
+// strings
+// heredoc
+$x    = 1;
+$text = <<< TEXT
+Line  $x
+Line 2
+Line 3
+<p>HHey</p>
+TEXT;
+
+echo nl2br($text);
+//nowdoc
+$text = <<< 'TEXT'
+Line $x
+Line 1
+Line 2
+TEXT;
+

@@ -139,7 +139,6 @@ function chunks($array, $count)
     return $result = array_filter(array_map(function ($val) use ($array, $count) {
         return array_slice($array, array_search($val, $array) * $count, $count);
     }, $array));
-
 }
 
 var_dump(chunks($items, 3));

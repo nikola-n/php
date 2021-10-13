@@ -29,20 +29,25 @@ class Address
 
 }
 
-//class User
-//{
-//
-//    public function __construct(
-//        public $name,
-//        public $email,
-//        public $verified = false,
-//            public $address
-//    )
-//    {
-//        $this->address = new Address($this->address);
-//    }
-//
-//}
-//
-//$user = new User('Nikola', 'nikola@nikola');
+class UserB
+{
+
+    /**
+     * @param       $name
+     * @param       $email
+     * @param false $verified
+     * @param       $address
+     */
+    public function __construct(
+        public $name,
+        public $email,
+        public $verified = false,
+        public $address
+    ) {
+        $this->address = new Address($this->address);
+    }
+
+}
+
+$user = new UserB('Nikola', 'nikola@nikola', 'nikola', 'nick');
 var_dump($user);
